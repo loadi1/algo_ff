@@ -1,5 +1,5 @@
 # Чтение строки t и s
-def read(n=10):
+def read(n=10, m=10):
     """
     Чтение файлов t.txt и s.txt
     Возвращает текст t и s в виде кортежа.
@@ -12,7 +12,8 @@ def read(n=10):
             t += f.readline()
 
     with open('s.txt', 'r') as f:
-        s = f.read()
+        s = ''
+        s += f.read(m)
 
     return t, s
 
@@ -51,7 +52,7 @@ def boyer_moore_horspool(text, pattern, mode='search'):
         if text[i - k] == pattern[j]:  # Если символы совпадают
             counter += 1
             if j == 0:  # Если это первый символ шаблона, значит мы нашли подстроку
-                counter += 1
+
                 matches.append(i - k)  # Добавляем индекс в список
                 i += M  # Смещаемся на длину шаблона
                 j = M - 1  # Возвращаемся к последнему символу шаблона
@@ -59,6 +60,7 @@ def boyer_moore_horspool(text, pattern, mode='search'):
                 k += 1  # Смещаемся на один символ назад в тексте
                 j -= 1  # Смещаемся на один символ назад в шаблоне
         else:  # Если символы не совпадают
+            counter += 1
             i += table[ord(text[i])]  # Смещаемся на значение из таблицы смещений
             j = M - 1  # Возвращаемся к последнему символу шаблона
             k = 0
@@ -85,10 +87,10 @@ def brute_force_search(text, pattern, mode='search'):
     for i in range(N - M + 1):  # Проходим по всем возможным начальным позициям подстроки в строке
         j = 0
         while j < M and text[i + j] == pattern[j]:  # Сравниваем символы подстроки и строки
-            counter += 2
+            counter += 1
             j += 1
         else:
-            counter += 2
+            counter += 1
 
         if j == M:  # Если все символы совпали, значит подстрока найдена
             counter += 1
@@ -108,26 +110,58 @@ print(brute_force_search(t, s))
 print(boyer_moore_horspool(t, s))
 
 
-global_times = []
-strings = [i for i in range(1, 404, 5)]
-for n in strings:
-    local_time = 0
-    t, s = read(n)
-    ans = boyer_moore_horspool(t, s, mode='counter')
-    global_times.append(ans)
+def graf1():
+    global_times = []
+    strings = [i for i in range(1, 404, 5)]
 
-plt.plot(strings, global_times)
+    for n in strings:
+        local_time = 0
+        t, s = read(n)
+        ans = boyer_moore_horspool(t, s, mode='counter')
+        global_times.append(ans)
 
-global_times = []
-for n in strings:
-    t, s = read(n)
-    ans = brute_force_search(t, s, mode='counter')
-    global_times.append(ans)
+    plt.plot(strings, global_times)
 
-plt.plot(strings, global_times)
-plt.xlabel('Количество поданных строк текста')
-plt.ylabel('Усреднённое время поиска')
-plt.grid()
-plt.legend(['Алгоритм Бойера-Мура-Хорспула', "Алгоритм грубой силы"])
-plt.savefig('graf.png', format='png')
-plt.show()
+    global_times = []
+    for n in strings:
+        t, s = read(n)
+        ans = brute_force_search(t, s, mode='counter')
+        global_times.append(ans)
+
+    plt.plot(strings, global_times)
+    plt.xlabel('Количество поданных строк текста')
+    plt.ylabel('Количество операций сравнений')
+    plt.grid()
+    plt.legend(['Алгоритм Бойера-Мура-Хорспула', "Алгоритм грубой силы"])
+    plt.savefig('graf1123.png', format='png')
+    plt.show()
+
+
+def graf2():
+    global_times = []
+    strings = [i for i in range(1, 100, 1)]
+
+    for m in strings:
+        t, s = read(n=400, m=m)
+        ans = boyer_moore_horspool(t, s, mode='counter')
+        global_times.append(ans)
+
+    plt.plot(strings, global_times)
+
+    global_times = []
+    for m in strings:
+        t, s = read(n=400, m=m)
+        ans = brute_force_search(t, s, mode='counter')
+        global_times.append(ans)
+
+    plt.plot(strings, global_times)
+    plt.xlabel('Длина подстроки')
+    plt.ylabel('Количество операций сравнений')
+    plt.grid()
+    plt.legend(['Алгоритм Бойера-Мура-Хорспула', "Алгоритм грубой силы"])
+    plt.savefig('graf2.png', format='png')
+    plt.show()
+
+
+
+graf2()
