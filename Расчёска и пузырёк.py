@@ -103,7 +103,8 @@ def graf1():
 
 def degree_of_sorting(n):
     degree = []
-    sequince = np.random.randint(-n, n, n)
+    sequince = np.arange(n)
+    np.random.shuffle(sequince)
     sequince1 = sequince.copy()
     sequince2 = sequince.copy()
     left = []
@@ -139,7 +140,7 @@ def degree_of_sorting(n):
     for i in right:
         degree.append(i)
     degree = np.array(degree)
-    return degree
+    return degree, len(left)
 
 
 def graf2():
@@ -148,7 +149,7 @@ def graf2():
     Bi = []
     Buble = []
     Knut = []
-    for seq in degree:
+    for seq in degree[0]:
         a = seq.copy()
         b = seq.copy()
         c = seq.copy()
@@ -161,19 +162,21 @@ def graf2():
     '''
     fig, ax = plt.subplot_mosaic(mosaic=mosaic)
     # fig, ax = plt.subplots(2, 1, layout='constrained')
-    fig.suptitle('Зависимость сложности вычисления сортировки в зависимости от размера массива')
+    fig.suptitle('Зависимость сложности вычисления сортировки в зависимости степени отсортированности массива')
 
-    ax['S'].plot(range(len(degree)), [time[0] for time in Buble], range(len(degree)), [time[0] for time in Bi], range(len(degree)), [time[0] for time in Knut])
+    ax['S'].plot(range(len(degree[0])), [time[0] for time in Buble], range(len(degree[0])), [time[0] for time in Bi], range(len(degree[0])), [time[0] for time in Knut])
     ax['S'].set_ylabel('Число операций обмена')
-    ax['S'].set_xlabel('Размер массива')
+    ax['S'].set_xlabel('Степень отсортированности')
     ax['S'].grid()
-    ax['S'].legend(['Сортировка пузырьком', 'Сортировка расчёской', 'Сортировка Шелла с шагом Кнутта'])
+    ax['S'].legend(['Сортировка пузырьком', 'Сортировка расчёской', 'Сортировка Шелла с шагом Кнутта'], loc='upper right')
+    ax['S'].vlines(degree[1], 0, 4.1*10**7, colors='r')
 
-    ax['C'].plot(range(len(degree)), [time[1] for time in Buble], range(len(degree)), [time[1] for time in Bi], range(len(degree)), [time[1] for time in Knut])
+    ax['C'].plot(range(len(degree[0])), [time[1] for time in Buble], range(len(degree[0])), [time[1] for time in Bi], range(len(degree[0])), [time[1] for time in Knut])
     ax['C'].set_ylabel('Число операций сравнений')
-    ax['C'].set_xlabel('Размер массива')
+    ax['C'].set_xlabel('Степень отсортированности')
     ax['C'].grid()
-    ax['C'].legend(['Сортировка пузырьком', 'Сортировка расчёской', 'Сортировка Шелла с шагом Кнутта'])
+    ax['C'].legend(['Сортировка пузырьком', 'Сортировка расчёской', 'Сортировка Шелла с шагом Кнутта'], loc='upper right')
+    ax['C'].vlines(degree[1], 0, 260_000, colors='r')
     plt.show()
 
 
