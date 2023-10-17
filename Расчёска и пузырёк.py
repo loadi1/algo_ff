@@ -66,6 +66,16 @@ def comb_sort(sequince, class_sort):
     return global_swap, global_compare
 
 
+def brush(sequince):
+    n = len(sequince)
+    gap = int(n/2)
+    while gap>0:
+        for i in range(gap, n):
+            j = i - gap
+            while j>= 0 and sequince[j] > sequince[j+gap]:
+                sequince[j], sequince[j+gap] = sequince[j+gap], sequince[j]
+                j -= gap
+        gap = gap // 2
 def graf1():
     Bi = []
     Buble = []
