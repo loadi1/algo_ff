@@ -65,7 +65,6 @@ def comb_sort(sequince, class_sort):
 
     return global_swap, global_compare
 
-
 def brush(sequince):
     global_swap = 0
     global_compare = 0
@@ -84,6 +83,8 @@ def brush(sequince):
         gap = gap // 2
 
     return global_swap, global_compare
+
+
 
 
 def ordinary_bubble(sequince):
@@ -230,7 +231,7 @@ def new_graf1():
         c = a.copy()
         Shell.append(brush(a))
         Buble.append(ordinary_bubble(b))
-        Knuth.append(comb_sort(c, KnuthStep))
+
 
 
     mosaic = '''
@@ -315,5 +316,5 @@ def new_graf2(n=100):
 # ordinary_bubble(b)
 # print(b == sorted(a))
 
-new_graf2(50)
+new_graf1()
 # new_graf1()
