@@ -147,6 +147,8 @@ def degree_of_sorting(n):
     right = []
 
     step = 1
+
+    # Сортировка пузырьком по возрастанию
     while True:
         left.append(sequince1.copy())
         swap = 0
@@ -158,6 +160,8 @@ def degree_of_sorting(n):
             i = i + 1
         if step == 1 and swap == 0:
             break
+
+    # Сортировка пузырьком по убыванию
     while True:
         right.append(sequince2.copy())
         swap = 0
@@ -170,6 +174,7 @@ def degree_of_sorting(n):
         if step == 1 and swap == 0:
             break
 
+    # Сливание массивов left, sequince, right специальным образом
     for i in left[::-1]:
         degree.append(i)
     degree.append(sequince)
