@@ -32,6 +32,7 @@ def graf1(counting, quick1, quick2):
     plt.savefig('CountingSort_VS_QuickSort1_VS_QuickSort2.png', format='png')
     plt.show()
 
+
 # добавить на график односторонний двухсторонний квиксорт
 def graf2(counting, quick1, quick2):
     n = len(counting)
@@ -46,6 +47,6 @@ def graf2(counting, quick1, quick2):
     plt.show()
 
 
-#graf1(*read(9995))
+# graf1(*read(9995))
 
-graf2(*read(1950-5, 'counting_dergee', 'quick1_dergee_new', 'quick2_degree_new'))
+graf2(*read(1950 - 5, 'counting_dergee', 'quick1_dergee_new', 'quick2_degree_new'))
